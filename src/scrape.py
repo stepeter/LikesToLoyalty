@@ -15,8 +15,9 @@ class ScrapeBluesky:
         n_posts_requested (int): Number of posts to retrieve.
     """
 
-    def __init__(self, n_posts_requested: int = 1000, auth_fid: str = "../auth.json",
-                 identifier: Optional[str] = None, app_password: Optional[str] = None) -> None:
+    def __init__(self, n_posts_requested: int = 1000, auth_fid: str = "auth.json",
+                 identifier: Optional[str] = None, app_password: Optional[str] = None,
+                 datarootpath: Optional[str] = "data") -> None:
         """
         Initialize ScrapeBluesky by loading credentials and setting request size.
 
@@ -32,6 +33,7 @@ class ScrapeBluesky:
             self.identifier: str = auth_info["identifier"]
             self.password: str = auth_info["app_password"]
         self.n_posts_requested: int = n_posts_requested
+        self.datarootpath: str = datarootpath
 
     def scrape(
                self,
@@ -62,7 +64,7 @@ class ScrapeBluesky:
         if stream:
             return df_posts, savefilename
         else:
-            df_posts.to_csv(f"../data/raw/{savefilename}.csv", index=False)
+            df_posts.to_csv(f"{self.datarootpath}/raw/{savefilename}.csv", index=False)
             print(f"Saved {len(df_posts)} posts!")
             return savefilename
 

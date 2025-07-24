@@ -18,7 +18,8 @@ class PostsToSentiment:
                  model_name: str = "bhadresh-savani/bert-base-go-emotion",
                  batch_size: int = 100,
                  stream: bool = False,
-                 suppress_neutral: bool = False
+                 suppress_neutral: bool = False,
+                 datarootpath: str = "data"
                 ) -> None:
         """
         Args:
@@ -34,6 +35,7 @@ class PostsToSentiment:
         self.stream: bool = stream
         self.query: str = query
         self.suppress_neutral: bool =suppress_neutral
+        self.datarootpath: str = datarootpath
 
     def load_posts(self, fid: Optional[str] = None) -> pd.DataFrame:
         """
@@ -46,7 +48,7 @@ class PostsToSentiment:
             pd.DataFrame: Raw posts with text content.
         """
         if fid is None:
-            fid = f"../data/raw/{self.loadfilename}.csv"
+            fid = f"{self.datarootpath}/raw/{self.loadfilename}.csv"
             
         return pd.read_csv(fid)
 
@@ -167,7 +169,7 @@ class PostsToSentiment:
         if self.stream:
             return df, savefilename
         else:        
-            df.to_csv(f"../data/processed/{savefilename}.csv", index=False)
+            df.to_csv(f"{self.datarootpath}/processed/{savefilename}.csv", index=False)
 
             print("Funnel stages assigned and saved.")
             return savefilename

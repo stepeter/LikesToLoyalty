@@ -1,11 +1,13 @@
+import os
+import sys
 import streamlit as st
 import pandas as pd
 from PIL import Image
 import plotly.express as px
 import base64
 
-import sys
-sys.path.append("..")
+# Append root path for loading local modules
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from src.scrape import ScrapeBluesky
 from src.posts_to_sentiment import PostsToSentiment
@@ -13,7 +15,7 @@ from src.posts_to_sentiment import PostsToSentiment
 # --- Load Data ---
 @st.cache_data
 def load_data():
-    df = pd.read_csv("../data/processed/labeled_posts_bsky_trekkingpoles.csv")
+    df = pd.read_csv("data/processed/labeled_posts_bsky_trekkingpoles.csv")
     df['created_at'] = pd.to_datetime(df['created_at'], format='mixed', utc=True)
     df['week'] = df['created_at'].dt.to_period("W").astype(str)
     df['week'] = df['week'].str.split('/', expand=True).loc[:, 0]
