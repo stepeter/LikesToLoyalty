@@ -1,0 +1,96 @@
+altair==5.5.0
+anyio==4.9.0
+appnope @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_7c1coup_4g/croot/appnope_1750774970724/work
+asttokens @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_15z9et5x6m/croot/asttokens_1743630451525/work
+attrs==25.3.0
+blinker==1.9.0
+cachetools==6.1.0
+certifi==2025.7.14
+charset-normalizer==3.4.2
+click==8.2.1
+comm @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_aef2nlxc2o/croot/comm_1709322866518/work
+contourpy==1.3.2
+cycler==0.12.1
+debugpy @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_a5sm9dmihj/croot/debugpy_1736267550163/work
+decorator @ file:///opt/conda/conda-bld/decorator_1643638310831/work
+executing @ file:///opt/conda/conda-bld/executing_1646925071911/work
+filelock==3.18.0
+fonttools==4.59.0
+fsspec==2025.7.0
+gitdb==4.0.12
+GitPython==3.1.44
+h11==0.16.0
+hf-xet==1.1.5
+httpcore==1.0.9
+httpx==0.28.1
+huggingface-hub==0.33.4
+idna==3.10
+imageio==2.37.0
+iniconfig==2.1.0
+ipykernel @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_6757k8pgf8/croot/ipykernel_1737662465787/work
+ipython @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_be0wj_gdwv/croot/ipython_1744912974216/work
+ipython_pygments_lexers @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_c2ksl8pvkj/croot/ipython_pygments_lexers_1744753254606/work
+jedi @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_b78vrox9dk/croot/jedi_1733987406492/work
+Jinja2==3.1.6
+jsonschema==4.25.0
+jsonschema-specifications==2025.4.1
+jupyter_client @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_e4fuoqieve/croot/jupyter_client_1737570976188/work
+jupyter_core @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_0a8h9_6hwe/croot/jupyter_core_1751991398340/work
+kiwisolver==1.4.8
+langdetect==1.0.9
+MarkupSafe==3.0.2
+matplotlib==3.10.3
+matplotlib-inline @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/matplotlib-inline_1699248719910/work
+mpmath==1.3.0
+narwhals==1.48.0
+nest-asyncio @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_c44_atq5c1/croot/nest-asyncio_1708532677863/work
+networkx==3.5
+numpy==1.26.4
+packaging @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_15t4xe1fp0/croot/packaging_1734472125760/work
+pandas==2.3.1
+parso @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_ffagjb_lok/croot/parso_1733963312676/work
+pexpect @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_fciqh6l88d/croot/pexpect_1750072604083/work
+pillow==11.3.0
+platformdirs @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_f8agv_yepz/croot/platformdirs_1744273051859/work
+plotly==6.2.0
+pluggy==1.6.0
+prompt-toolkit @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_4d8kk9w3ed/croot/prompt-toolkit_1704404354789/work
+protobuf==6.31.1
+psutil @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_ed123tcwwq/croot/psutil_1736369384437/work
+ptyprocess @ file:///tmp/build/80754af9/ptyprocess_1609355006118/work/dist/ptyprocess-0.7.0-py2.py3-none-any.whl
+pure-eval @ file:///opt/conda/conda-bld/pure_eval_1646925070566/work
+pyarrow==21.0.0
+pydeck==0.9.1
+Pygments @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_d3k0kb020b/croot/pygments_1744664134805/work
+pyparsing==3.2.3
+pytest==8.4.1
+python-dateutil @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_efk5_uakg8/croot/python-dateutil_1716495742183/work
+pytz==2025.2
+PyYAML==6.0.2
+pyzmq @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_728n2oj6m9/croot/pyzmq_1734709561835/work
+referencing==0.36.2
+regex==2024.11.6
+requests==2.32.4
+rpds-py==0.26.0
+safetensors==0.5.3
+setuptools==78.1.1
+six @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_2e3n1z57yz/croot/six_1744271514562/work
+smmap==5.0.2
+sniffio==1.3.1
+stack-data @ file:///opt/conda/conda-bld/stack_data_1646927590127/work
+streamlit==1.47.0
+sympy==1.14.0
+tenacity==9.1.2
+tokenizers==0.21.2
+toml==0.10.2
+torch==2.2.2
+torchvision==0.17.2
+tornado @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_53i9d3wys5/croot/tornado_1748956943199/work
+tqdm==4.67.1
+traitlets @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_f49losghmg/croot/traitlets_1718227069025/work
+transformers==4.53.2
+typing_extensions==4.14.1
+tzdata==2025.2
+urllib3==2.5.0
+wcwidth @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_1fo7yjwhjy/croot/wcwidth_1750352905069/work
+wheel==0.45.1
