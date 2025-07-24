@@ -408,6 +408,7 @@ def dashboard_overview() -> None:
     ### ⚠️ Known Limitations
     - **Platform Scope**: Currently limited to Bluesky scraping.
     - **Emotion Detection**: May miss nuanced or sarcastic tones; NLP model often focuses on overall post sentiment instead of focusing on sentiment towards the query.
+    - **Aggregate Conversion**: Conversion calculations are based on aggregate weekly results and may not have consistent users from one week to the next, leading to inaccurate results, particularly with small sample sizes.
     - **Time Granularity**: Aggregation is weekly; daily views or trend smoothing are not available.
     - **Query Stream Size**: Rate limits and app credential constraints may cap post volume for larger campaigns. Sentiment prediction is also slow because CPU is used.
 

@@ -44,10 +44,10 @@ set_initial_states()
 
 set_dashboard_header()
 # --- Query Submission Form First ---
-tab_labels = ["📊 Funnel Trends", "💬 Sample Messages", "🛠️ Create Custom Query", "📝 Dashboard Overview"]
+tab_labels = ["📝 Dashboard Overview", "📊 Funnel Trends", "💬 Sample Messages", "🛠️ Create Custom Query"]
 tabs = st.tabs(tab_labels)
 
-with tabs[2]:  # "🛠️ Create Custom Query"
+with tabs[3]:  # "🛠️ Create Custom Query"
     query_interface_form()
 
 # --- Run Scraper If Submitted ---
@@ -65,14 +65,14 @@ set_sidebar_filters()
 filter_data()
 ratios_long = compute_funnel_conversions(emoji_map)
 
-with tabs[0]:  # Funnel Trends
+with tabs[1]:  # Funnel Trends
     plot_funnel_weekly_counter(emoji_map, funnel_colors)
     plot_funnel_conversions(ratios_long, conversion_colors)
 
-with tabs[1]:  # Sample Messages
+with tabs[2]:  # Sample Messages
     display_sample_messages(df=st.session_state.filtered_df, emoji_map=emoji_map)
 
-with tabs[3]:  # Overview
+with tabs[0]:  # Overview
     dashboard_overview()
     
 if st.session_state.submitted:
