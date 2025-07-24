@@ -11,7 +11,8 @@ from app_utils import (
     load_data,
     filter_data,
     set_sidebar_filters,
-    dashboard_overview
+    dashboard_overview,
+    set_initial_states
 )
 
 emoji_map = {
@@ -37,55 +38,56 @@ conversion_colors = {
     f"{emoji_map['Advocacy']} / {emoji_map['Trust']}": "#9467bd"         # green
 }
 
-# --- Load Data ---
-load_data()
+# --- Config ---
+st.set_page_config(page_title="Social Media Sentiment Explorer", layout="wide")
+set_initial_states()
 
+set_dashboard_header()
+# --- Query Submission Form First ---
+tab_labels = ["📊 Funnel Trends", "💬 Sample Messages", "🛠️ Create Custom Query", "📝 Dashboard Overview"]
+tabs = st.tabs(tab_labels)
+
+with tabs[2]:  # "🛠️ Create Custom Query"
+    query_interface_form()
+
+# --- Run Scraper If Submitted ---
 if "submitted" not in st.session_state:
     st.session_state.submitted = False
-
-# --- Sidebar Filters ---
-set_sidebar_filters()
 
 if st.session_state.submitted:
     with st.spinner("Fetching posts and analyzing funnel stages..."):
         run_scraper_pipeline()
-        st.success("✅ Done! Funnel updated.")
+        st.success("✅ Done! Funnel updated.")  
 
-# --- Filtered Data ---
+# --- Continue with Setup ---
+load_data()
+set_sidebar_filters()
 filter_data()
-
-# --- Compute funnel conversions ---
 ratios_long = compute_funnel_conversions(emoji_map)
-        
-# --- Config ---
-st.set_page_config(page_title="Social Media Sentiment Explorer", layout="wide")
 
-# --- Title ---
-set_dashboard_header()
-
-tab1, tab2, tab3, tab4 = st.tabs(["📊 Funnel Trends",
-                                  "💬 Sample Messages",
-                                  "🛠️ Create Custom Query",
-                                  "📝 Dashboard Overview"])
-
-with tab1:
-    # --- Funnel weekly counter ---
+with tabs[0]:  # Funnel Trends
     plot_funnel_weekly_counter(emoji_map, funnel_colors)
-
-    # --- Funnel conversion ---
     plot_funnel_conversions(ratios_long, conversion_colors)
 
-with tab2:
-    # --- Sample Messages ---
-    display_sample_messages(
-        df=st.session_state.filtered_df,
-        emoji_map=emoji_map
-    )
+with tabs[1]:  # Sample Messages
+    display_sample_messages(df=st.session_state.filtered_df, emoji_map=emoji_map)
 
-with tab3:
-    # --- Query Interface Form ---
-    query_interface_form()
-
-with tab4:
-    # --- Dashboard Oveview ---
+with tabs[3]:  # Overview
     dashboard_overview()
+    
+if st.session_state.submitted:
+    st.session_state.submitted = False  # Optional: Reset after run
+    
+st.markdown(f"""
+    <div style="
+        background-color:#2C2F33;
+        border:1px solid #ccc;
+        padding:10px;
+        border-radius:5px;
+        font-size:20px;
+    ">
+    🔍 <b>Current query:</b> {st.session_state.user_query}
+    </div>
+""", unsafe_allow_html=True)
+st.write("")
+st.write("")

@@ -26,17 +26,6 @@ def set_dashboard_header() -> None:
     st.title("From Likes to Loyalty: Social Media Sentiment Explorer")
     st.markdown("Explore how social media posts flow from awareness to advocacy using NLP and emotion classification.")
 
-    st.markdown(f"""
-        <div style="
-            background-color:#2C2F33;
-            border:1px solid #ccc;
-            padding:10px;
-            border-radius:5px;
-            font-size:20px;
-        ">
-        🔍 <b>Current query:</b> {st.session_state.user_query}
-        </div>
-    """, unsafe_allow_html=True)
     st.write("")
     st.write("")
 
@@ -99,12 +88,6 @@ def set_sidebar_filters() -> None:
     Returns:
         None
     """
-    if "user_query" not in st.session_state:
-        st.session_state.user_query = "trekking poles"
-        df = load_data()
-    if "df" not in st.session_state:
-        st.session_state.df = df  # Default to full dataset
-
     st.sidebar.title("Filter Controls")
     st.session_state.platforms = st.sidebar.multiselect("Platform",
                                        options=st.session_state.df["platform"].unique(),
@@ -347,19 +330,53 @@ def query_interface_form() -> None:
         st.subheader("🔎 Analyze Custom Query")
         st.markdown("Use this form to scrape and analyze sentiment of a custom query.")
 
-        st.session_state.user_query = st.text_input("Enter query keyword(s):", value=st.session_state.user_query)
-        st.session_state.identifier = st.text_input("Bluesky username:", value=None)
-        st.session_state.app_password = st.text_input("Bluesky app password:", value=None, type="password")
+        user_query = st.text_input("Enter query keyword(s):", value=st.session_state.user_query)
+        identifier = st.text_input("Bluesky username:", value=None)
+        app_password = st.text_input("Bluesky app password:", value=None, type="password")
 
         col1, col2 = st.columns(2)
         with col1:
-            st.session_state.start_date = st.text_input("Start Date (YYYY-MM-DD):", value="2025-01-01")
+            start_date = st.text_input("Start Date (YYYY-MM-DD):", value="2025-01-01")
         with col2:
-            st.session_state.end_date = st.text_input("End Date (YYYY-MM-DD):", value="2025-07-31")
+            end_date = st.text_input("End Date (YYYY-MM-DD):", value="2025-07-31")
 
-        st.session_state.n_posts_requested = st.number_input("Number of posts to retrieve:", min_value=1, step=1, value=1000)
+        n_posts_requested = st.number_input("Number of posts to retrieve:",
+                                            min_value=1, step=1, value=st.session_state.n_posts_requested)
 
-        st.session_state.submitted = st.form_submit_button("🚀 Analyze Query")
+        submitted = st.form_submit_button("🚀 Analyze Query")
+        
+    if submitted:
+        st.session_state.submitted = submitted
+        st.session_state.user_query = user_query
+        st.session_state.identifier = identifier
+        st.session_state.app_password = app_password
+        st.session_state.start_date = start_date
+        st.session_state.end_date = end_date
+        st.session_state.n_posts_requested = n_posts_requested
+        
+def set_initial_states() -> None:
+    """
+    Sets initial states for dashboard
+    
+    Returns:
+        None
+    
+    """
+    if "user_query" not in st.session_state:
+        st.session_state.user_query = "trekking poles"
+        df = load_data()
+        if "df" not in st.session_state:
+            st.session_state.df = df  # Default to full dataset
+    if "identifier" not in st.session_state:
+        st.session_state.identifier = ""
+    if "app_password" not in st.session_state:
+        st.session_state.app_password = ""
+    if "start_date" not in st.session_state:
+        st.session_state.start_date = "2025-01-01"
+    if "end_date" not in st.session_state:
+        st.session_state.end_date = "2025-07-31"
+    if "n_posts_requested" not in st.session_state:
+        st.session_state.n_posts_requested = 1000
         
 def dashboard_overview() -> None:
     """
@@ -371,6 +388,10 @@ def dashboard_overview() -> None:
     st.header("📝 Dashboard Purpose & Guide")
     st.markdown("""
     This dashboard helps you explore how social media posts evolve from awareness to brand advocacy using NLP emotion classification and funnel analysis.
+    
+    <p style='font-size:18px'>
+        🚀 <a href='https://github.com/stepeter/LikesToLoyalty' target='_blank'>View GitHub Project</a>
+    </p>
 
     ### 🔍 Functionality Highlights
     - **Query Sentiment Pipeline**: Scrapes posts from Bluesky, performs emotion tagging via NLP, and adds funnel stage metadata.
