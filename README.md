@@ -1,3 +1,5 @@
+[![Run Unit Tests](https://github.com/stepeter/LikesToLoyalty/actions/workflows/test.yml/badge.svg)](https://github.com/stepeter/LikesToLoyalty/actions/workflows/test.yml)
+
 # From Likes to Loyalty — A Sentiment-Driven Funnel Explorer
 
 This interactive NLP-powered tool visualizes the emotional journey of users through a brand engagement funnel. Using social media messages collected from BlueSky, it classifies sentiment and maps messages to funnel stages, illustrating the progression from Awareness to Advocacy.
