@@ -8,12 +8,13 @@ This interactive NLP-powered tool visualizes the emotional journey of users thro
 - Streamlit dashboard for message filtering and persona simulation
 
 ## Tech Stack
-Python, HuggingFace Transformers, Streamlit, pytest, imageio, matplotlib
+Python, HuggingFace Transformers, Streamlit, pytest, matplotlib
 
 ## Business Context
-Inspired by GTM analytics challenges for social media branding, this project helps marketing teams optimize messaging tone, monitor campaign emotion curves, and identify high-conversion content strategies.
+Inspired by analytics challenges for social media branding, this project demonstrates how NLP can help marketing teams optimize messaging tone, monitor campaign emotion curves, and identify high-conversion content strategies.
 
 ## Note
 This code requires a *auth.json* file with your BlueSky credentials to scrape data:
+    
     app_password: <your_bluesky_app_password>
     identifier: <your_bluesky_username>.bsky.social
