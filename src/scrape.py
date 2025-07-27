@@ -4,6 +4,18 @@ import pandas as pd
 import re
 from typing import Optional, List, Dict, Any, Union, Tuple
 from langdetect import detect
+from pyparsing import (
+    infixNotation,
+    Keyword,
+    Word,
+    alphanums,
+    ParserElement,
+    opAssoc,
+    dblQuotedString,
+    removeQuotes,
+)
+
+ParserElement.enablePackrat()
 
 class ScrapeBluesky:
     """
@@ -60,6 +72,13 @@ class ScrapeBluesky:
         df_posts = self.filter_by_time(df_posts, date_start, date_end)
         df_posts = self.filter_by_language(df_posts)
         df_posts["platform"] = "bluesky"
+        
+        # Only keep posts that match query
+        parser = build_parser()
+        parsed = parser.parseString(query)[0]
+        df_posts["match"] = df_posts["text"].apply(parsed.eval)
+        df_posts = df_posts[df_posts["match"]]
+        df_posts.drop(columns=["match"], inplace=True)
         
         if stream:
             return df_posts, savefilename
@@ -210,3 +229,61 @@ class ScrapeBluesky:
         df["text"] = df["text"].apply(self._strip_urls)
         df["language"] = df["text"].apply(self._detect_language)
         return df[df["language"] == "en"]
+
+    
+# --- Code to check that query is in post ---
+class Operand:
+    def __init__(self, tokens):
+        self.term = tokens[0]
+
+    def eval(self, target: str) -> bool:
+        return self.term.lower() in target.lower()
+
+
+class Not:
+    def __init__(self, tokens):
+        self.arg = tokens[0][1]
+
+    def eval(self, target: str) -> bool:
+        return not self.arg.eval(target)
+
+
+class And:
+    def __init__(self, tokens):
+        self.args = tokens[0][0::2]
+
+    def eval(self, target: str) -> bool:
+        return all(arg.eval(target) for arg in self.args)
+
+
+class Or:
+    def __init__(self, tokens):
+        self.args = tokens[0][0::2]
+
+    def eval(self, target: str) -> bool:
+        return any(arg.eval(target) for arg in self.args)
+
+
+def build_parser():
+    # Match quoted phrases or bare words
+    phrase = (
+        dblQuotedString.setParseAction(removeQuotes)
+        | Word(alphanums + "_-")
+    )
+    phrase.setParseAction(Operand)
+
+    # Logical operators
+    NOT = Keyword("NOT", caseless=True)
+    AND = Keyword("AND", caseless=True)
+    OR = Keyword("OR", caseless=True)
+
+    expr = infixNotation(
+        phrase,
+        [
+            (NOT, 1, opAssoc.RIGHT, Not),
+            (AND, 2, opAssoc.LEFT, And),
+            (OR, 2, opAssoc.LEFT, Or),
+        ],
+    )
+
+    return expr

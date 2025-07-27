@@ -15,7 +15,7 @@ class PostsToSentiment:
     def __init__(self, 
                  loadfilename: str,
                  query: str,
-                 model_name: str = "bhadresh-savani/bert-base-go-emotion",
+                 model_name: str = "SamLowe/roberta-base-go_emotions",
                  batch_size: int = 100,
                  stream: bool = False,
                  suppress_neutral: bool = False,

@@ -44,7 +44,7 @@ set_initial_states()
 
 set_dashboard_header()
 # --- Query Submission Form First ---
-tab_labels = ["📝 Dashboard Overview", "📊 Funnel Trends", "💬 Sample Messages", "🛠️ Create Custom Query"]
+tab_labels = ["📝 Dashboard Overview", "📊 Sentiment Analysis", "💬 Sample Messages", "🛠️ Create Custom Query"]
 tabs = st.tabs(tab_labels)
 
 with tabs[3]:  # "🛠️ Create Custom Query"
@@ -55,9 +55,9 @@ if "submitted" not in st.session_state:
     st.session_state.submitted = False
 
 if st.session_state.submitted:
-    with st.spinner("Fetching posts and analyzing funnel stages..."):
+    with st.spinner("Fetching posts and analyzing sentiment..."):
         run_scraper_pipeline()
-        st.success("✅ Done! Funnel updated.")  
+        st.success("✅ Done! Sentiment updated.")  
 
 # --- Continue with Setup ---
 load_data()

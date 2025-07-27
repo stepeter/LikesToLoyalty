@@ -189,6 +189,7 @@ def plot_funnel_weekly_counter(
         None or plotly.graph_objects.Figure (if cumulative plot is shown)
     """
     st.subheader("Funnel Stage Visualization Mode")
+    st.write("Note that funnel stages are based on manual mapping from predicted sentiment")
     plot_mode = st.radio("Choose plot type:", ["Cumulative Trends", "Weekly Counts"], horizontal=True)
     
     if plot_mode == "Weekly Counts":
@@ -279,14 +280,14 @@ def plot_funnel_conversions(
     Returns:
         plotly.graph_objects.Figure: Line chart visualization.
     """
-    st.subheader("Funnel Conversion")
+    st.subheader("Aggregate Funnel Conversion")
+    st.write("⚠️ Warning: Conversion rates are computed over the aggregate, not individual users and may therefore be inaccurate especially for low sample sizes")
 
     peak_week = ratios_long.loc[ratios_long["rate"].idxmax()]
     low_trust = ratios_long.query("conversion_step.str.contains('Trust')").sort_values("rate").iloc[0]
 
     annotations = [
-        dict(x=peak_week["week"], y=peak_week["rate"], text="🔥 Peak Conversion", showarrow=True, arrowhead=1),
-    #     dict(x=low_trust["week"], y=low_trust["rate"], text="⚠️ Drop in Trust", showarrow=True, arrowhead=1)
+        dict(x=peak_week["week"], y=peak_week["rate"], text="🔥 Peak Conversion", showarrow=True, arrowhead=1)
     ]
     
     fig = px.line(
