@@ -102,6 +102,7 @@ class PostsToSentiment:
         mapping: Dict[str, str] = {
             "curiosity": "Awareness",
             "neutral": "Awareness",
+            "approval": "Trust",
             "admiration": "Trust",
             "optimism": "Interest",
             "excitement": "Interest",

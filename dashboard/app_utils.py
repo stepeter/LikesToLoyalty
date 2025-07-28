@@ -205,6 +205,7 @@ TABLE_HTML = """
         <tr class="interest"><td>desire</td><td>💡 Interest</td><td>Expressed want or preference</td></tr>
         <tr class="interest"><td>anticipation</td><td>💡 Interest</td><td>Planning or looking forward to action</td></tr>
         <tr class="trust"><td>admiration</td><td>🤝 Trust</td><td>Positive signal of credibility</td></tr>
+        <tr class="trust"><td>approval</td><td>🤝 Trust</td><td>Signals validation or endorsement of credibility</td></tr>
         <tr class="advocacy"><td>gratitude</td><td>📣 Advocacy</td><td>Endorsement behavior, thankfulness</td></tr>
         <tr class="advocacy"><td>pride</td><td>📣 Advocacy</td><td>Expressed ownership or promotion</td></tr>
         <tr class="advocacy"><td>love</td><td>📣 Advocacy</td><td>Emotional alignment with brand or idea</td></tr>
