@@ -99,13 +99,14 @@ def set_sidebar_filters() -> None:
                                       options=st.session_state.df["emotion"].unique(),
                                       default=st.session_state.df["emotion"].unique())
 
-def display_sample_messages(df: pd.DataFrame, emoji_map: dict[str, str]) -> None:
+def display_sample_messages(df: pd.DataFrame, emoji_map: dict[str, str], funnel_colors: dict[str, str]) -> None:
     """
     Display a random sample of social media messages with funnel/emotion tagging.
 
     Args:
         df (pd.DataFrame): Filtered messages with funnel stage and emotion columns.
         emoji_map (dict[str, str]): Mapping from funnel stage to corresponding emoji.
+        funnel_colors (dict[str, str]): Funnel stage to color mapping.
 
     Side Effects:
         - Updates st.session_state.new_sample with a new sample if refreshed.
@@ -125,7 +126,14 @@ def display_sample_messages(df: pd.DataFrame, emoji_map: dict[str, str]) -> None
     sample = st.session_state.new_sample
 
     for _, row in sample.iterrows():
-        st.markdown(f"**{row['platform']} · {emoji_map[row['funnel_stage']]} · {row['emotion']}**")
+#         st.markdown(f"**{row['platform']} · {emoji_map[row['funnel_stage']]} · {row['emotion']}**")
+        bg_color = funnel_colors.get(emoji_map.get(row["funnel_stage"], "👀 Awareness"), "#444444")  # fallback dark gray
+        html_box = f"""
+            <div style="background-color:{bg_color}; padding:8px; border-radius:6px; color:white;">
+            <strong>{row['platform']} · {row['funnel_stage']} · {row['emotion']}</strong>
+            </div>
+            """
+        st.markdown(html_box, unsafe_allow_html=True)
         st.write(row["text"].split('Post: ')[1] if 'Post: ' in row["text"] else row["text"])
         st.markdown("---")
         
@@ -171,6 +179,40 @@ def run_scraper_pipeline() -> None:
 
     # Persist to session state
     st.session_state.df = df_tmp
+
+TABLE_HTML = """
+    <style>
+        .awareness { background-color: #1f77b4; color: white; }
+        .interest { background-color: #ff7f0e; color: white; }
+        .trust { background-color: #2ca02c; color: white; }
+        .advocacy { background-color: #9467bd; color: white; }
+        .dropoff { background-color: #d62728; color: white; }
+        table { border-collapse: collapse; width: 100%; }
+        th { background-color: #333333; color: white; padding: 8px; }
+        td { border: 1px solid #444444; padding: 8px; color: white; }
+    </style>
+
+    <table>
+        <tr>
+            <th>Emotion Label</th>
+            <th>Funnel Stage</th>
+            <th>Justification</th>
+        </tr>
+        <tr class="awareness"><td>curiosity</td><td>👀 Awareness</td><td>Spark of attention without commitment</td></tr>
+        <tr class="awareness"><td>all other emotions</td><td>👀 Awareness</td><td>Baseline mention, unclear relationship to query</td></tr>
+        <tr class="interest"><td>optimism</td><td>💡 Interest</td><td>Hopeful engagement, emotional investment</td></tr>
+        <tr class="interest"><td>excitement</td><td>💡 Interest</td><td>High energy attention</td></tr>
+        <tr class="interest"><td>desire</td><td>💡 Interest</td><td>Expressed want or preference</td></tr>
+        <tr class="interest"><td>anticipation</td><td>💡 Interest</td><td>Planning or looking forward to action</td></tr>
+        <tr class="trust"><td>admiration</td><td>🤝 Trust</td><td>Positive signal of credibility</td></tr>
+        <tr class="advocacy"><td>gratitude</td><td>📣 Advocacy</td><td>Endorsement behavior, thankfulness</td></tr>
+        <tr class="advocacy"><td>pride</td><td>📣 Advocacy</td><td>Expressed ownership or promotion</td></tr>
+        <tr class="advocacy"><td>love</td><td>📣 Advocacy</td><td>Emotional alignment with brand or idea</td></tr>
+        <tr class="dropoff"><td>confusion</td><td>💔 Drop-Off</td><td>Uncertainty that could hinder progression</td></tr>
+        <tr class="dropoff"><td>disapproval</td><td>💔 Drop-Off</td><td>Explicit negative sentiment</td></tr>
+        <tr class="dropoff"><td>anger</td><td>💔 Drop-Off</td><td>Strong disengagement or backlash</td></tr>
+    </table>
+    """
     
 def plot_funnel_weekly_counter(
     emoji_map: dict[str, str],
@@ -190,6 +232,11 @@ def plot_funnel_weekly_counter(
     """
     st.subheader("Funnel Stage Visualization Mode")
     st.write("Note that funnel stages are based on manual mapping from predicted sentiment")
+    
+    # Expander to hold the styled table
+    with st.expander("Click to explore the emotion-stage mapping"):
+        st.markdown(TABLE_HTML, unsafe_allow_html=True)
+    
     plot_mode = st.radio("Choose plot type:", ["Cumulative Trends", "Weekly Counts"], horizontal=True)
     
     if plot_mode == "Weekly Counts":

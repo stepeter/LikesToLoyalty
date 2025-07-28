@@ -74,7 +74,7 @@ with tabs[1]:  # Funnel Trends
     plot_funnel_conversions(ratios_long, conversion_colors)
 
 with tabs[2]:  # Sample Messages
-    display_sample_messages(df=st.session_state.filtered_df, emoji_map=emoji_map)
+    display_sample_messages(df=st.session_state.filtered_df, emoji_map=emoji_map, funnel_colors=funnel_colors)
 
 with tabs[0]:  # Overview
     dashboard_overview()
