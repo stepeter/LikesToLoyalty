@@ -43,8 +43,12 @@ st.set_page_config(page_title="Social Media Sentiment Explorer", layout="wide")
 set_initial_states()
 
 set_dashboard_header()
+markdown_placeholder = st.empty()
+st.write("")
+st.write("")
+
 # --- Query Submission Form First ---
-tab_labels = ["📝 Dashboard Overview", "📊 Sentiment Analysis", "💬 Sample Messages", "🛠️ Create Custom Query"]
+tab_labels = ["📝 Dashboard Overview", "📊 Funnel Analysis", "💬 Sample Messages", "🛠️ Create Custom Query"]
 tabs = st.tabs(tab_labels)
 
 with tabs[3]:  # "🛠️ Create Custom Query"
@@ -78,7 +82,7 @@ with tabs[0]:  # Overview
 if st.session_state.submitted:
     st.session_state.submitted = False  # Optional: Reset after run
     
-st.markdown(f"""
+markdown_placeholder.markdown(f"""
     <div style="
         background-color:#2C2F33;
         border:1px solid #ccc;
@@ -89,5 +93,3 @@ st.markdown(f"""
     🔍 <b>Current query:</b> {st.session_state.user_query}
     </div>
 """, unsafe_allow_html=True)
-st.write("")
-st.write("")

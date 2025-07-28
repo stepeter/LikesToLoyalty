@@ -26,8 +26,8 @@ def set_dashboard_header() -> None:
     st.title("From Likes to Loyalty: Social Media Sentiment Explorer")
     st.markdown("Explore how social media posts flow from awareness to advocacy using NLP and emotion classification.")
 
-    st.write("")
-    st.write("")
+#     st.write("")
+#     st.write("")
 
 @st.cache_data
 def load_data(fid: str = "data/processed/labeled_posts_bsky_trekkingpoles.csv") -> pd.DataFrame:
@@ -400,6 +400,7 @@ def dashboard_overview() -> None:
     - **Visual Funnels**: Toggle between *weekly breakdown* or *cumulative sentiment flows* across funnel stages.
     - **Conversion Metrics**: Track how efficiently posts move through stages (e.g. Awareness → Interest → Trust → Advocacy).
     - **Sample Explorer**: View real posts that correspond to each stage, with refreshable samples.
+    - **Custom Queries**: Perform real-time analyses of custom queries on Bluesky posts.
 
     ### 💼 Business Motivation
     - **Brand Intelligence**: Understand not just what people say, but *how they feel* at each engagement stage.
